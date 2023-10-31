@@ -35,10 +35,11 @@ public class CharController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
 
         // Horizontal movement
-        float moveInput = Input.GetAxis("Horizontal");
-        Vector3 moveDirection = new Vector3(0, 0, -moveInput);
+        float moveInputZ = Input.GetAxis("Horizontal");
+        float moveInputX = Input.GetAxis("Vertical");
+        Vector3 moveDirection = new Vector3(moveInputZ, 0, moveInputX);
         Vector3 move = transform.TransformDirection(moveDirection) * moveSpeed;
-        if(moveInput != 0)
+        if(moveInputZ != 0 || moveInputX != 0)
         {
             animator.SetBool("Run", true);
         }
