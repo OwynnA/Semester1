@@ -2883,6 +2883,7 @@ GameObject:
   - component: {fileID: 1205125803}
   - component: {fileID: 1205125805}
   - component: {fileID: 1205125806}
+  - component: {fileID: 1205125807}
   m_Layer: 3
   m_Name: FloatingGround1
   m_TagString: Untagged
@@ -2984,6 +2985,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1205125807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205125802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 7.887575, y: 5.761091, z: -0.11763692}
+  m_EndPoint: {x: 3.2028549, y: 5.6929398, z: -0.05674553}
+  m_Width: 8.803832
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!43 &1249491783
 Mesh:
   m_ObjectHideFlags: 0
