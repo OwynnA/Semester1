@@ -21,13 +21,18 @@ public class CharController : MonoBehaviour
 
     Animator animator;
     public TextMeshProUGUI gameOver;
+    public GameObject damage;
+
+    private SoundManager sound;
 
     private void Awake()
     {
+        sound = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         controller = GetComponent<CharacterController>();
         jumpForce = trueJumpForce;
         moveSpeed = trueSpeed;
         animator = GetComponent<Animator>();
+        damage = GameObject.FindGameObjectWithTag("damage");
     }
 
     private void Update()
@@ -35,11 +40,10 @@ public class CharController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
 
         // Horizontal movement
-        float moveInputZ = Input.GetAxis("Horizontal");
         float moveInputX = Input.GetAxis("Vertical");
-        Vector3 moveDirection = new Vector3(moveInputZ, 0, moveInputX);
+        Vector3 moveDirection = new Vector3(0, 0, moveInputX);
         Vector3 move = transform.TransformDirection(moveDirection) * moveSpeed;
-        if(moveInputZ != 0 || moveInputX != 0)
+        if(moveInputX != 0)
         {
             animator.SetBool("Run", true);
         }
@@ -63,6 +67,7 @@ public class CharController : MonoBehaviour
         // Jumping
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
+            sound.JumpSFX();
             velocity.y = Mathf.Sqrt(jumpForce * -2 * gravity);
             animator.SetTrigger("Jump");
         }
@@ -71,8 +76,24 @@ public class CharController : MonoBehaviour
         controller.Move((move + velocity) * Time.deltaTime);
     }
 
+     public void JumpBoost(int newJumpHeight)
+    {
+        damage.GetComponent<Collider>().enabled = true;
+        jumpForce = newJumpHeight;
+        Debug.Log("Your jump force has been greatly increased");
+        moveSpeed = trueSpeed;
+    }
+
+    public void invincible()
+    {
+        damage.GetComponent<Collider>().enabled = false;
+        jumpForce = trueJumpForce;
+        Debug.Log("You are Invincible!");
+    }
+
     public void Die()
     {
+        sound.DeathSFX();
         animator.SetTrigger("Death");
         gameOver.gameObject.SetActive(true);
         gameOver.text = "Game Over";
